@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+      body {
+        background-color: #f6f3f4;
+      }
+      header {
+        /* background-color: green; */
+        display: flex;
+        color: #002a55;
+        border-bottom: 1px solid gray;
+        margin: 20px 20px 0px 20px;
+      }
+
+      header > h1 {
+        cursor: pointer;
+        margin-left: 50px;
+      }
+
+      #pageTitle {
+        font-size: 32px;
+        margin: auto;
+      }
+      #typingBox {
+        background-color: white;
+        width: 900px;
+        margin: auto;
+        margin-top: 50px;
+        padding-top: 20px;
+        border-radius: 10%;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 700px;
+        margin: auto;
+      }
+      .textArea {
+        margin-top: 20px;
+        padding-left: 20px;
+        border: none;
+        background-color: #d6ebfc;
+        height: 50px;
+        border-radius: 5px;
+      }
+      .submitArea {
+        margin: 40px auto 30px auto;
+        width: 100px;
+        height: 80px;
+        background-color: #a0ebee;
+        border: none;
+        border-radius: 5px;
+      }
+    </style>
+    <script>
+      // 기능 추가
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <div>🐾개발</div>
+        <div>자국🐾</div>
+      </h1>
+      <div id="pageTitle">관리자 페이지</div>
+    </header>
+    <div id="typingBox">
+      <form>
+        <input class="textArea" type="text" placeholder="이름" />
+        <input class="textArea" type="text" placeholder="mbti" />
+        <input class="textArea" type="text" placeholder="장점" />
+        <input class="textArea" type="text" placeholder="자신의 협업 스타일" />
+        <input
+          class="textArea"
+          type="text"
+          placeholder="내일배움 캠프의 궁극적인 목표"
+        />
+        <input class="textArea" type="text" placeholder="블로그 주소" />
+        <input class="submitArea" type="submit" value="등록하기" />
+      </form>
+    </div>
+  </body>
+</html>
