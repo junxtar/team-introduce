@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>관리자 페이지</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+      #main {
+        background-color: #f6f3f4;
+        width: 1200px;
+        margin: 70px auto 0px auto;
+        padding-bottom: 100px;
+        border-radius: 10px;
+        box-shadow: 10px 5px 5px gray;
+      }
+      header {
+        display: flex;
+        color: #002a55;
+        border-bottom: 1px solid #808080;
+        margin: 20px 20px 0px 20px;
+        padding: 0px 50px 0px 50px;
+      }
+
+      header > h1 {
+        cursor: pointer;
+      }
+
+      #pageTitle {
+        font-size: 32px;
+        margin: 45px 0px 0px 300px;
+      }
+      #typingBox {
+        background-color: white;
+        width: 800px;
+        margin: 50px auto 0px auto;
+        padding-top: 20px;
+        border-radius: 10%;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        margin: auto;
+      }
+      .textArea {
+        margin-top: 20px;
+        padding-left: 20px;
+        border: none;
+        background-color: #d6ebfc;
+        height: 50px;
+        border-radius: 5px;
+      }
+      .submitArea {
+        margin: 40px auto 30px auto;
+        width: 100px;
+        height: 80px;
+        opacity: 0.6;
+
+        background-color: #a0ebee;
+        border: none;
+        border-radius: 5px;
+      }
+      .submitArea:hover {
+        cursor: pointer;
+        box-shadow: 5px 5px 5px gray;
+      }
+      .submitArea:active {
+        box-shadow: none;
+      }
+      #space-text {
+        margin-left: 40px;
+      }
+    </style>
+    <script type="module">
+      // Firebase SDK 라이브러리 가져오기
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+      // Firebase 구성 정보 설정
+      const firebaseConfig = {
+        apiKey: "AIzaSyC0ZJ1e-znOrvP4dmlZ53end6N6A0OaUm8",
+        authDomain: "introteam-6a680.firebaseapp.com",
+        projectId: "introteam-6a680",
+        storageBucket: "introteam-6a680.appspot.com",
+        messagingSenderId: "284189308059",
+        appId: "1:284189308059:web:a48130e6f4868ac63b823e",
+      };
+
+      // Firebase 인스턴스 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      $("#btn").click(async function () {
+        let name = $("#name").val();
+        let image = $("#image").val();
+        let mbti = $("#mbti").val();
+        let strengths = $("#strengths").val();
+        let style = $("#style").val();
+        let goal = $("#goal").val();
+        let blog = $("#blog").val();
+
+        let inform = {
+          name: name,
+          image: image,
+          mbti: mbti,
+          strengths: strengths,
+          style: style,
+          goal: goal,
+          blog: blog,
+        };
+
+        await addDoc(collection(db, "team"), inform);
+        alert("저장완료");
+        window.location.reload();
+      });
+    </script>
+  </head>
+  <body>
+    <div id="main">
+      <header>
+        <h1 id="home" onClick="location.href='index.html'">
+          <div>🐾 개발</div>
+          <div id="space-text">자국 🐾</div>
+        </h1>
+        <div id="pageTitle">관리자 페이지</div>
+      </header>
+      <div id="qwe"></div>
+      <div id="typingBox">
+        <form>
+          <input class="textArea" id="name" type="text" placeholder="이름" />
+          <input
+            class="textArea"
+            id="image"
+            type="text"
+            placeholder="프로필 이미지 주소"
+          />
+          <input class="textArea" id="mbti" type="text" placeholder="mbti" />
+          <input
+            class="textArea"
+            id="strengths"
+            type="text"
+            placeholder="장점"
+          />
+          <input
+            class="textArea"
+            id="style"
+            type="text"
+            placeholder="자신의 협업 스타일"
+          />
+          <input
+            class="textArea"
+            id="goal"
+            type="text"
+            placeholder="내일배움 캠프의 궁극적인 목표"
+          />
+          <input
+            class="textArea"
+            id="blog"
+            type="text"
+            placeholder="블로그 주소"
+          />
+          <input class="submitArea" id="btn" type="button" value="등록하기" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
