@@ -119,6 +119,11 @@
         margin-left: 10px;
         cursor: pointer;
       }
+
+      .rounded-circle {
+        cursor: pointer;
+        border: 1px solid grey;
+      }
     </style>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -153,7 +158,6 @@
         let style = row["style"];
         let goal = row["goal"];
         let blog = row["blog"];
-        console.log(doc);
         let id = doc.id;
 
         let temp_html = `
@@ -170,7 +174,6 @@
       });
 
       $(".rounded-circle").on("click", function () {
-        console.log(this.dataset["id"]);
         let id = this.dataset["id"];
         getDoc(doc(db, "team", id)).then((data) => console.log(data.data()));
       });
@@ -196,7 +199,6 @@
             🐾
           </h1>
         </div>
-        <!-- onclick="location.href='management.html'" -->
         <div
           class="button"
           data-bs-toggle="modal"
