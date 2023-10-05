@@ -127,7 +127,11 @@
         collection,
         addDoc,
       } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-      import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        doc,
+        getDoc,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       const firebaseConfig = {
         apiKey: "AIzaSyC0ZJ1e-znOrvP4dmlZ53end6N6A0OaUm8",
         authDomain: "introteam-6a680.firebaseapp.com",
@@ -149,17 +153,28 @@
         let style = row["style"];
         let goal = row["goal"];
         let blog = row["blog"];
+        console.log(doc);
+        let id = doc.id;
+
         let temp_html = `
         <div class="col">
             <img
               src="${image}"
               class="rounded-circle"
+              data-id="${id}"
             />
             <h5>${name}</h5>
           </div>
         `;
         $("#cardBox").append(temp_html);
       });
+
+      $(".rounded-circle").on("click", function () {
+        console.log(this.dataset["id"]);
+        let id = this.dataset["id"];
+        getDoc(doc(db, "team", id)).then((data) => console.log(data.data()));
+      });
+
       $("#management-btn").click(async function () {
         let password = $("#password").val();
         if (password == 1234) {
