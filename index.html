@@ -1,209 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🐾개발자취🐾</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <style>
-        .body {
-            background-color: #f6f3f4;
-        }
+      .body {
+        background-color: #f6f3f4;
+      }
 
-        .msgbox {
-            height: 250px;
-            background-color: white;
-            margin-bottom: 50px;
-        }
+      .msgbox {
+        height: 250px;
+        background-color: white;
+        margin-bottom: 50px;
+      }
 
-        .left {
-            width: 45%;
-            text-align: center;
-            float: left;
-            box-sizing: border-box;
-        }
+      .left {
+        width: 45%;
+        text-align: center;
+        float: left;
+        box-sizing: border-box;
+      }
 
-        .right {
-            padding-left: 250px;
-            width: 55%;
-            float: right;
-            box-sizing: border-box;
-        }
+      .right {
+        padding-left: 250px;
+        width: 55%;
+        float: right;
+        box-sizing: border-box;
+      }
 
-        .main {
-            background-color: #f6f3f4;
-        }
+      .main {
+        background-color: #f6f3f4;
+      }
 
-        .myTitle {
-            height: 330px;
-            color: #002a55;
+      .myTitle {
+        height: 330px;
+        color: #002a55;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .title {
-            padding-left: 100px;
-            text-align: center;
-            width: 85%;
-            float: left;
-            box-sizing: border-box;
-        }
+      .title {
+        padding-left: 100px;
+        text-align: center;
+        width: 85%;
+        float: left;
+        box-sizing: border-box;
+      }
 
-        .button {
-            width: 15%;
-            float: right;
-            box-sizing: border-box;
-            color: #002a55;
-        }
+      .button {
+        width: 15%;
+        float: right;
+        box-sizing: border-box;
+        color: #002a55;
+      }
 
+      .myCards {
+        width: 960px;
+        background-color: transparent;
+        margin: 40px auto 40px auto;
+      }
+
+      @media (max-width: 960px) {
+        /*가로 너비가 960px 이하일 때 아래 스타일 적용*/
         .myCards {
-            width: 960px;
-            background-color: transparent;
-            margin: 40px auto 40px auto;
+          width: 500px;
         }
+      }
 
-        @media (max-width: 960px) {
+      .myPostingBox {
+        width: 600px;
+        margin: 20px auto 0px auto;
+        padding: 20px;
+        box-shadow: 0px 0px 3px 0px blue;
+        border-radius: 5px;
+      }
 
-            /*가로 너비가 960px 이하일 때 아래 스타일 적용*/
-            .myCards {
-                width: 500px;
-            }
-        }
+      .myBtn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .myPostingBox {
-            width: 600px;
-            margin: 20px auto 0px auto;
-            padding: 20px;
-            box-shadow: 0px 0px 3px 0px blue;
-            border-radius: 5px;
-        }
+      .myBtn > button {
+        margin: 1px 5px 1px 5px;
+      }
 
-        .myBtn {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
+      #space-text {
+        margin-left: 100px;
+      }
 
-        .myBtn>button {
-            margin: 1px 5px 1px 5px;
-        }
+      .col {
+        text-align: center;
+        width: 300px;
+      }
 
-        #space-text {
-            margin-left: 100px;
-        }
+      .col > img {
+        height: 250px;
+        width: 250px;
+      }
 
-        .col {
-            text-align: center;
-            width: 300px;
-        }
+      .col > h5 {
+        margin-top: 10px;
+      }
 
-        .col>img {
-            height: 250px;
-            width: 250px;
-        }
-
-        .col>h5 {
-            margin-top: 10px;
-        }
-
-        .button>h4 {
-            margin-left: 10px;
-            cursor: pointer;
-        }
+      .button > h4 {
+        margin-left: 10px;
+        cursor: pointer;
+      }
     </style>
-    <script type="module"></script>
-</head>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyC0ZJ1e-znOrvP4dmlZ53end6N6A0OaUm8",
+        authDomain: "introteam-6a680.firebaseapp.com",
+        projectId: "introteam-6a680",
+        storageBucket: "introteam-6a680.appspot.com",
+        messagingSenderId: "284189308059",
+        appId: "1:284189308059:web:a48130e6f4868ac63b823e",
+      };
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-<body>
+      let docs = await getDocs(collection(db, "team"));
+      docs.forEach((doc) => {
+        let row = doc.data();
+        let name = row["name"];
+        let image = row["image"];
+        let mbti = row["mbti"];
+        let strengths = row["strengts"];
+        let style = row["style"];
+        let goal = row["goal"];
+        let blog = row["blog"];
+        let temp_html = `
+        <div class="col">
+            <img
+              src="${image}"
+              class="rounded-circle"
+            />
+            <h5>${name}</h5>
+          </div>
+        `;
+        $("#cardBox").append(temp_html);
+      });
+    </script>
+  </head>
+
+  <body>
     <div class="main">
-        <div class="myTitle">
-            <div class="title">
-                <h1 style="font-size: 70px; font-weight: bold">
-                    🐾 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자국
-                    🐾
-                </h1>
-            </div>
-            <div class="button" onclick="location.href='management.html'">
-                <button type="button" class="btn">
-                    <img src="images/icon.png" />
-                </button>
-                <h4>관리자 페이지</h4>
-            </div>
+      <div class="myTitle">
+        <div class="title">
+          <h1 style="font-size: 70px; font-weight: bold">
+            🐾 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자국
+            🐾
+          </h1>
         </div>
-        <div class="msgbox">
-            <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-                <div class="left">
-                    <h2 class="display-5 fw-bold">🐾Team. 개발자취</h2>
-                    <p>
-                        <br />개발자는 개발문서를 학습하고<br />기록하여 자신의 발자취를
-                        남긴다 🐾
-                    </p>
-                </div>
-                <div class="right">
-                    <h2 class="display-5">우리 팀만의 특징</h2>
-                    <ul>
-                        <li>bullet point!1</li>
-                        <li>bullet point!2</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="button" onclick="location.href='management.html'">
+          <button type="button" class="btn">
+            <img src="images/icon.png" />
+          </button>
+          <h4>관리자 페이지</h4>
         </div>
-        <div class="msgbox">
-            <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-                <div class="left">
-                    <br />
-                    <h2 class="display-5 fw-bold">🐾Team. 규칙</h2>
-                </div>
-                <div class="right">
-                    <ul>
-                        <li>09:00 - 09:30 아침 회의</li>
-                        <li>20:30 ~ 21:00 팀원 마무리 회의</li>
-                        <li>20:00 ~ 20:30 알고리즘 학습 시간</li>
-                        <li>매일 TIL 블로그 업로드 및 공유</li>
-                        <li>구글링을 잘하자</li>
-                        <li>이슈 발생시 팀원들과 공유</li>
-                    </ul>
-                </div>
-            </div>
+      </div>
+      <div class="msgbox">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+          <div class="left">
+            <h2 class="display-5 fw-bold">🐾Team. 개발자취</h2>
+            <p>
+              <br />개발자는 개발문서를 학습하고<br />기록하여 자신의 발자취를
+              남긴다 🐾
+            </p>
+          </div>
+          <div class="right">
+            <h2 class="display-5">우리 팀의 특징</h2>
+            <ul>
+              <li>bullet point!1</li>
+              <li>bullet point!2</li>
+            </ul>
+          </div>
         </div>
-        <div class="myCards">
-            <div id="cardBox" class="row row-cols-1 row-cols-lg-3 g-4 justify-content-center">
-                <div class="col">
-                    <img src="https://ca.slack-edge.com/T043597JK8V-U05S3FE0F97-f32d8fb3bb73-512" class="rounded-circle" />
-                    <h5>정해인</h5>
-                </div>
-                <div class="col">
-                    <img src="https://ca.slack-edge.com/T043597JK8V-U05SVCQ0UJD-c968d8f6f680-512" class="rounded-circle" />
-                    <h5>최준영</h5>
-                </div>
-                <div class="col">
-                    <img src="https://ca.slack-edge.com/T043597JK8V-U05S298PAUV-dc53077eed93-512" class="rounded-circle" />
-                    <h5>이승준</h5>
-                </div>
-                <div class="col">
-                    <img src="https://ca.slack-edge.com/T043597JK8V-U05NSJMNKD2-0067a5e4ee66-512" class="rounded-circle"  />
-                    <h5>김건우</h5>
-                </div>
-                <div class="col">
-                    <img src="https://ca.slack-edge.com/T043597JK8V-U05SANPMMMX-g548bdf2ab49-512" class="rounded-circle" />
-                    <h5>장하람</h5>
-                </div>
-            </div>
+      </div>
+      <div class="msgbox">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+          <div class="left">
+            <br />
+            <h2 class="display-5 fw-bold">🐾Team. 규칙</h2>
+          </div>
+          <div class="right">
+            <ul>
+              <li>09:00 - 09:30 아침 회의</li>
+              <li>20:30 ~ 21:00 팀원 마무리 회의</li>
+              <li>20:00 ~ 20:30 알고리즘 학습 시간</li>
+              <li>매일 TIL 블로그 업로드 및 공유</li>
+              <li>구글링을 잘하자</li>
+              <li>이슈 발생시 팀원들과 공유</li>
+            </ul>
+          </div>
         </div>
-        <hr />
-        <div class="myBtn">
-            <button id="postingbtn" type="button" class="btn btn-primary">
-                기록하기
-            </button>
-            <button type="button" class="btn btn-outline-primary">닫기</button>
-        </div>
+      </div>
+      <div class="myCards">
+        <div
+          id="cardBox"
+          class="row row-cols-1 row-cols-lg-3 g-4 justify-content-center"
+        ></div>
+      </div>
+      <hr />
     </div>
-</body>
-
+  </body>
 </html>
