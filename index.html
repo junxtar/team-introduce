@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🐾개발자취🐾</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <style>
       .body {
         background-color: #f6f3f4;
@@ -159,6 +160,15 @@
         `;
         $("#cardBox").append(temp_html);
       });
+      $("#management-btn").click(async function () {
+        let password = $("#password").val();
+        if (password == 1234) {
+          alert("인증되었습니다.");
+          window.location.href = "management.html";
+        } else {
+          alert("비밀번호가 일치하지 않습니다.");
+        }
+      });
     </script>
   </head>
 
@@ -171,7 +181,12 @@
             🐾
           </h1>
         </div>
-        <div class="button" onclick="location.href='management.html'">
+        <!-- onclick="location.href='management.html'" -->
+        <div
+          class="button"
+          data-bs-toggle="modal"
+          data-bs-target="#managementModal"
+        >
           <button type="button" class="btn">
             <img src="images/icon.png" />
           </button>
@@ -190,8 +205,11 @@
           <div class="right">
             <h2 class="display-5">우리 팀의 특징</h2>
             <ul>
-              <li>bullet point!1</li>
-              <li>bullet point!2</li>
+              <li>의사소통이 원활하게 이루어 진다.</li>
+              <li>팀원 간의 배려심과 신뢰도가 높다.</li>
+              <li>팀장이 리더십 역량을 잘 갖추고 있다.</li>
+              <li>팀원끼리 꾸준한 경험 공유한다.</li>
+              <li>서로 실력 향상을 위해 노력하며 도와준다.</li>
             </ul>
           </div>
         </div>
@@ -222,5 +240,56 @@
       </div>
       <hr />
     </div>
+    <div
+      class="modal fade"
+      id="managementModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              ⚙️ 관리자 비밀번호
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >비밀번호</label
+                >
+                <input type="password" class="form-control" id="password" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="management-btn">
+              접속하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bootstram js 사용 import -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
