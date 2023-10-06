@@ -12,7 +12,12 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;800&display=swap");
+      * {
+        font-family: "Noto Sans KR", sans-serif;
+      }
       .body {
         background-color: #f6f3f4;
       }
@@ -124,6 +129,119 @@
         cursor: pointer;
         border: 1px solid grey;
       }
+
+      /*  profile css */
+      @keyframes open {
+        0% {
+          top: 100%;
+        }
+        100% {
+          top: 50%;
+        }
+      }
+
+      .gbjc_member {
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 2s;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 950px;
+        width: 750px;
+        background-color: white;
+        color: rgb(91 123 189);
+        box-shadow: 0px 0px 10px 0px rgb(207, 232, 252);
+        margin: 50px auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4%;
+        padding: 50px 50px;
+      }
+      .open .gbjc_member {
+        animation: open;
+        animation-duration: 2s;
+        z-index: 1;
+        opacity: 1;
+      }
+
+      .gbjc_member > .header {
+        width: 540px;
+        height: 40px;
+        text-align: end;
+      }
+      .gbjc_member > .row {
+        width: 540px;
+        align-items: flex-end;
+      }
+      .gbjc_member > .col-6 {
+        text-align: center;
+        justify-content: center;
+      }
+      .self_intro {
+        background-color: whitesmoke;
+        width: 450px;
+        height: 500px;
+        border-radius: 4%;
+        padding: 40px 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+      }
+      h1 {
+        color: black;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: xx-large;
+      }
+      .gbjc_member > h2 {
+        font-weight: 500;
+        font-size: larger;
+      }
+      .col-6 > img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        border: 1px solid rgb(233, 232, 232);
+      }
+      .profile_top {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+      }
+      .item {
+        display: block;
+      }
+      .item > p {
+        padding-left: 20px;
+        font-weight: 300;
+        color: black;
+      }
+      .btn_blog {
+        box-sizing: content-box;
+        width: 70px;
+        padding: 0.25em 0.25em;
+        background-color: transparent;
+        border: 0;
+        opacity: 0.8;
+        font-size: 15px;
+        text-align: center;
+        color: black;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .icon {
+        font-size: 45px;
+        margin: 0;
+      }
     </style>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -173,9 +291,62 @@
         $("#cardBox").append(temp_html);
       });
 
-      $(".rounded-circle").on("click", function () {
+      $(".rounded-circle").click(async function () {
         let id = this.dataset["id"];
-        getDoc(doc(db, "team", id)).then((data) => console.log(data.data()));
+        let data = await getDoc(doc(db, "team", id));
+        $("body").toggleClass("open");
+        let name = data.data()["name"];
+        let img = data.data()["image"];
+        let mbti = data.data()["mbti"];
+        let goal = data.data()["goal"];
+        let style = data.data()["style"];
+        let strengths = data.data()["strengths"];
+        let blog = data.data()["blog"];
+
+        let append_html = `
+        <div class="header">
+          <button class="btn-close"/>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-6">
+            <img
+              src="${img}"
+            />
+            <h1>${name}</h1>
+          </div>
+          <div class="col-3">
+            <a href="${blog}">
+              <div class="btn_blog">
+                <p class="icon">🔗</p>
+                <p>블로그링크</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="self_intro">
+          <div class="item">
+            <h2>MBTI</h2>
+            <p>${mbti}</p>
+          </div>
+          <div class="item">
+            <h2>나의 장점</h2>
+            <p>${strengths}</p>
+          </div>
+          <div class="item">
+            <h2>협업스타일</h2>
+            <p>${style}</p>
+          </div>
+          <div class="item">
+            <h2>캠프 참여의 궁극적인 목표</h2>
+            <p>${goal}</p>
+          </div>
+        </div>
+        `;
+        $(".gbjc_member").append(append_html);
+        $(".btn-close").click(async function () {
+          $("body").removeClass("open");
+          $(".gbjc_member").empty();
+        });
       });
 
       $("#management-btn").click(async function () {
@@ -195,6 +366,7 @@
 
   <body>
     <div class="main">
+      <div class="gbjc_member"></div>
       <div class="myTitle">
         <div class="title">
           <h1 style="font-size: 70px; font-weight: bold">
