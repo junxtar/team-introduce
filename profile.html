@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개발자취 팀원</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Diphylleia&display=swap");
+      * {
+        font-family: "Bagel Fat One", cursive;
+        font-family: "Diphylleia", serif;
+      }
+      .gbjc_member {
+        height: 950px;
+        width: 650px;
+        max-width: 650px;
+        background-color: white;
+        color: rgb(192, 171, 38);
+        border-radius: 135px;
+        box-shadow: 0px 0px 10px 0px rgb(207, 232, 252);
+        margin: 250px auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .subject {
+        color: black;
+      }
+      .self_intro {
+        background-color: whitesmoke;
+        width: 350px;
+        height: 500px;
+        border-radius: 85px;
+        margin-bottom: 55px;
+        padding: 30px 60px 30px 60px;
+      }
+      .circle_face {
+        margin-top: 70px;
+        width: 275px;
+        height: 275px;
+        border-radius: 50%;
+        border: 10px solid rgb(207, 232, 252);
+        background-image: url("");
+        background-position: center;
+        background-size: cover;
+      }
+      .detail {
+        padding-left: 20px;
+        font-weight: lighter;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gbjc_member">
+      <div class="circle_face">
+        <!-- 프로필 이미지 (필요한 경우 추가) -->
+      </div>
+      <div class="subject">
+        <h1>이름</h1>
+      </div>
+      <div class="self_intro">
+        <h2>MBTI</h2>
+        <div class="detail">
+          <p>MBTI 데이터 불러오기</p>
+        </div>
+
+        <h2>나의 장점</h2>
+        <div class="detail">
+          <p>나의 장점 데이터 불러오기</p>
+        </div>
+
+        <h2>협업스타일</h2>
+        <div class="detail">
+          <p>협업스타일 데이터 불러오기</p>
+        </div>
+
+        <h2>캠프 참여의 궁극적인 목표</h2>
+        <div class="detail">
+          <p>목표 데이터 불러오기</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
