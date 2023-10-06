@@ -64,13 +64,6 @@
         justify-content: center;
       }
 
-      .guestButton {
-        text-align: center;
-        width: 15%;
-        box-sizing: border-box;
-        color: #002a55;
-      }
-
       .title {
         text-align: center;
         width: 70%;
@@ -82,6 +75,10 @@
         width: 15%;
         box-sizing: border-box;
         color: #002a55;
+      }
+
+      .button > button > img {
+        width: 100px;
       }
 
       .myCards {
@@ -134,8 +131,7 @@
         margin-top: 10px;
       }
 
-      .button > h4 {
-        margin-left: 10px;
+      .button > h5 {
         cursor: pointer;
       }
 
@@ -379,7 +375,7 @@
         }
       });
 
-      $(".guestButton").click(async function () {
+      $("#guestButton").click(async function () {
         window.location.href = "guest.html";
       });
     </script>
@@ -389,11 +385,11 @@
     <div class="main">
       <div class="gbjc_member"></div>
       <div class="myTitle">
-        <div class="guestButton">
+        <div class="button" id="guestButton">
           <button type="button" class="btn">
             <img src="images/icon2.png" />
           </button>
-          <h4>방명록</h4>
+          <h5>방명록</h5>
         </div>
         <div class="title">
           <h1 style="font-size: 70px; font-weight: bold">
@@ -409,7 +405,7 @@
           <button type="button" class="btn">
             <img src="images/icon.png" />
           </button>
-          <h4>관리자 페이지</h4>
+          <h5>관리자 페이지</h5>
         </div>
       </div>
       <div class="msgbox">
