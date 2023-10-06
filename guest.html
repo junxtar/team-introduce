@@ -182,14 +182,15 @@
         >
           수정
         </button>
-        <input 
+        <button
           type="button"
           class="delete-btn"
           data-id="${id}"
-          value="삭제"
           data-bs-toggle="modal"
           data-bs-target="#deleteModal"
-          />
+          >
+          삭제
+          </button>
       </div>
         `;
         $("#list").append(temp_html);
