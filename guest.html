@@ -145,6 +145,8 @@
         getDocs,
         updateDoc,
         deleteDoc,
+        query,
+        orderBy,
       } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       const firebaseConfig = {
         apiKey: "AIzaSyC0ZJ1e-znOrvP4dmlZ53end6N6A0OaUm8",
@@ -157,7 +159,8 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      let docs = await getDocs(collection(db, "guest"));
+      let dateDesc = query(collection(db, "guest"), orderBy("date", "desc"));
+      let docs = await getDocs(dateDesc);
       docs.forEach((doc) => {
         let row = doc.data();
         let writer = row["writer"];
@@ -210,7 +213,7 @@
 
         $("#update").click(async function () {
           let inputPassword = $("#password").val();
-          if (inputPassword == password) {
+          if (sha256(inputPassword) == password) {
             const guest = doc(db, "guest", id);
             let writer = $("#writer-modal").val();
             let content = $("#content-modal").val();
@@ -234,10 +237,12 @@
         let password = data.data()["password"];
         $("#delete").click(async function () {
           let inputPassword = $("#deletePassword").val();
-          if (inputPassword == password) {
+          if (sha256(inputPassword) == password) {
             await deleteDoc(doc(db, "guest", id));
             alert("삭제되었습니다.");
             window.location.reload();
+          } else {
+            alert("비밀번호가 일치하지 않습니다.");
           }
         });
       });
@@ -250,7 +255,8 @@
         let inform = {
           writer: writer,
           content: content,
-          password: password,
+          password: sha256(password),
+          date: new Date(),
         };
         await addDoc(collection(db, "guest"), inform);
         alert("기록완료");
