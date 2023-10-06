@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🐾방명록🐾</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Hahmlet&display=swap");
+      * {
+        font-family: "font 1", sans-serif;
+      }
+      .body {
+        background-color: azure;
+      }
+      .title {
+        margin: 50px auto 50px auto;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .input {
+        height: 150px;
+        margin: 20px 100px 20px 100px;
+        padding: 45px 0 30px 50px;
+        background-color: rgb(226, 226, 226);
+        border-radius: 35px;
+        background-position: center;
+        background-size: cover;
+      }
+      .writer {
+        border-radius: 35px;
+        padding-left: 20px;
+        border: none;
+        height: 60px;
+        width: 14%;
+        float: inline-start;
+        margin-right: 10px;
+        background-color: #d6ebfc;
+      }
+      .content {
+        border-radius: 35px;
+        padding-left: 20px;
+        border: none;
+        height: 60px;
+        width: 50%;
+        margin-right: 10px;
+        background-color: #d6ebfc;
+      }
+      .pwd {
+        border-radius: 35px;
+        padding-left: 20px;
+        border: none;
+        height: 60px;
+        width: 14%;
+        margin-right: 10px;
+        background-color: #d6ebfc;
+      }
+      .button1 {
+        border-radius: 35px;
+        border: none;
+        height: 60px;
+        width: 10%;
+        float: inline-end;
+      }
+
+      /*기록되는 부분*/
+      .content1 {
+        border-radius: 35px;
+        background-color: rgb(202, 255, 235);
+        height: 100px;
+        margin: auto 150px 30px 150px;
+      }
+      .content2 {
+        margin: 26px auto 25px auto;
+        height: 60px;
+        width: 60%;
+        float: left;
+        padding-left: 30px;
+      }
+      .button2 {
+        margin: 21px auto 25px auto;
+        border-radius: 50px;
+        border: none;
+        height: 60px;
+        width: 10%;
+        float: right;
+        background-color: #d6ebfc;
+        margin-right: 10px;
+      }
+    </style>
+    <script></script>
+  </head>
+
+  <body>
+    <div class="title">
+      <h1 style="font-size: 70px; font-weight: bold">🐾 방명록 🐾</h1>
+    </div>
+    <!--입력폼-->
+    <form name="f">
+      <div class="input">
+        <div>
+          <input
+            class="writer"
+            type="text"
+            name="writer"
+            id="writer"
+            placeholder="닉네임"
+          />
+          <input
+            class="content"
+            type="text"
+            name="content"
+            id="content"
+            placeholder="방명록 작성"
+          />
+          <input
+            class="pwd"
+            type="password"
+            name="pwd"
+            id="pwd"
+            placeholder="비밀번호"
+          />
+          <button class="button1" type="button" onclick="a()">🐾작성</button>
+        </div>
+      </div>
+    </form>
+    <div id="list">
+      <div class="content1">
+        <h2 class="content2">
+          <span> writer</span>
+          <span> content </span>
+        </h2>
+        <button
+          type="button"
+          class="button2"
+          data-bs-toggle="modal"
+          data-bs-target="#guestModal"
+        >
+          수정
+        </button>
+        <input type="button" class="button2" value="삭제" />
+      </div>
+      <div class="content1">
+        <h2 class="content2">
+          <span> writer</span>
+          <span> content </span>
+        </h2>
+        <button
+          type="button"
+          class="button2"
+          data-bs-toggle="modal"
+          data-bs-target="#guestModal"
+        >
+          수정
+        </button>
+        <input type="button" class="button2" value="삭제" />
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="guestModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">수정하기</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >작성자</label
+                >
+                <input type="text" class="form-control" id="writer-modal" />
+              </div>
+            </form>
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">내용</label>
+                <input type="text" class="form-control" id="contents-modal" />
+              </div>
+            </form>
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >비밀번호</label
+                >
+                <input type="password" class="form-control" id="password" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="modify-btn">
+              수정하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bootstram js 사용 import -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
