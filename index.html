@@ -306,6 +306,7 @@
       });
 
       $(".rounded-circle").click(async function () {
+        $(".gbjc_member").empty();
         let id = this.dataset["id"];
         let data = await getDoc(doc(db, "team", id));
         $("body").toggleClass("open");
@@ -359,7 +360,6 @@
         $(".gbjc_member").append(append_html);
         $(".btn-close").click(async function () {
           $("body").removeClass("open");
-          $(".gbjc_member").empty();
         });
       });
 
