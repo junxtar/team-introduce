@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <style>
       .body {
         background-color: #f6f3f4;
@@ -180,7 +180,10 @@
 
       $("#management-btn").click(async function () {
         let password = $("#password").val();
-        if (password == 1234) {
+        if (
+          sha256(password) ==
+          "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+        ) {
           alert("인증되었습니다.");
           window.location.href = "management.html";
         } else {
