@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Hahmlet&display=swap");
+* {
+  font-family: "font 1", sans-serif;
+}
+header {
+  display: flex;
+  color: #002a55;
+  border-bottom: 1px solid #808080;
+  margin-top: 20px;
+  padding: 0px 340px 0px 200px;
+}
+
+header > h1 {
+  cursor: pointer;
+}
+
+#space-text {
+  margin-left: 40px;
+}
+.body {
+  background-color: azure;
+}
+.title {
+  margin: 50px auto 50px auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.input {
+  height: 150px;
+  margin: 20px 100px 20px 100px;
+  padding: 45px 0 30px 50px;
+  background-color: rgb(226, 226, 226);
+  border-radius: 35px;
+  background-position: center;
+  background-size: cover;
+}
+.writer {
+  border-radius: 35px;
+  padding-left: 20px;
+  border: none;
+  height: 60px;
+  width: 14%;
+  float: inline-start;
+  margin-right: 10px;
+  background-color: #d6ebfc;
+}
+.content {
+  border-radius: 35px;
+  padding-left: 20px;
+  border: none;
+  height: 60px;
+  width: 50%;
+  margin-right: 10px;
+  background-color: #d6ebfc;
+}
+.pwd {
+  border-radius: 35px;
+  padding-left: 20px;
+  border: none;
+  height: 60px;
+  width: 14%;
+  margin-right: 10px;
+  background-color: #d6ebfc;
+}
+.button1 {
+  border-radius: 35px;
+  border: none;
+  height: 60px;
+  width: 10%;
+  float: inline-end;
+}
+
+/*기록되는 부분*/
+.content1 {
+  border-radius: 35px;
+  background-color: rgb(202, 255, 235);
+  height: 100px;
+  margin: auto 150px 30px 150px;
+}
+.content2 {
+  margin: auto auto auto auto;
+  height: 60px;
+  width: 82%;
+  float: left;
+  padding-left: 30px;
+}
+.update-btn,
+.delete-btn {
+  margin: 19px auto 25px auto;
+  border-radius: 50px;
+  border: none;
+  height: 60px;
+  width: 7%;
+  float: right;
+  background-color: #d6ebfc;
+  margin-right: 15px;
+}
+.left {
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 14px;
+  height: 70px;
+  background-color: rgb(249, 237, 222);
+  border-radius: 50px;
+  width: 20%;
+  float: left;
+}
+.right {
+  padding-left: 30px;
+  padding-top: 10px;
+  margin-top: 14px;
+  height: 70px;
+  background-color: rgb(249, 237, 222);
+  border-radius: 50px;
+  width: 77%;
+  float: right;
+}
