@@ -50,32 +50,40 @@
 
         let id = doc.id;
 
-        //data-id 추가하기
+        // id를 변형한 이유 -> 클래스명은 영문으로 시작해야함 하지만 문서의 ID값은 숫자로 시작하는 경우가 있음 따라서 영문자로 시작하게끔 변형
+        // accordion을 각 유저별로 열고 닫고를 해줘야함 하지만 유저별로 식별할 수 있는 값이 필요했음
+        // 식별할 수 있는 값을 class의 값으로 주기 위해서 id를 변형해서 삽입
+        // 식별하지 않았을 경우 한 유저가 하나의 방명록을 열었을때 다른 유저의 방명록까지 열리는 현상이 발생
+
+        let transformId = "a" + doc.id;
+
         let temp_html = `
-        <div class="content1" >
-        <h2 class="content2">
-          <div class="left">${writer}</div>
-          <div class="right">${content}</div>
-        </h2>
-        <button
+        <div class="item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed"
           type="button"
-          class="update-btn"
-          data-id="${id}"
-          data-bs-toggle="modal"
-          data-bs-target="#updateModal"
-        >
-          수정
-        </button>
-        <button
-          type="button"
-          class="delete-btn"
-          data-id="${id}"
-          data-bs-toggle="modal"
-          data-bs-target="#deleteModal"
+          data-bs-toggle="collapse"
+          data-bs-target=".${transformId}"
+          aria-expanded="false"
           >
-          삭제
+            ${writer}님
           </button>
-      </div>
+        </h2>
+        <div class="${transformId} accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">${content}</div>
+        </div>
+        <div class="${transformId} accordion-footer collapse" data-bs-parent="#accordionFlushExample">
+            <button class="update-btn btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#updateModal"
+            data-id="${id}"
+            >수정</button>
+            <button class="delete-btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteModal"
+            data-id="${id}"
+            >삭제</button>
+        </div>
         `;
         $("#list").append(temp_html);
       });
@@ -113,6 +121,7 @@
 
       $(".delete-btn").click(async function () {
         let id = this.dataset["id"];
+        console.log(123);
         let data = await getDoc(doc(db, "guest", id));
 
         let password = data.data()["password"];
@@ -128,7 +137,7 @@
         });
       });
 
-      $(".button1").click(async function () {
+      $("#write").click(async function () {
         let writer = $("#writer").val();
         let content = $("#content").val();
         let password = $("#pwd").val();
@@ -152,45 +161,87 @@
 
   <body>
     <header>
-      <h1 id="home">
-        <div>🐾 개발</div>
-        <div id="space-text">자국 🐾</div>
+      <h1 id="home" style="font-size: 35px">
+        🐾 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자국 🐾
       </h1>
       <div class="title">
-        <h1 style="font-size: 70px; font-weight: bold">🐾 방명록 🐾</h1>
+        <h1 style="font-size: 50px; font-weight: bold">🐾 방명록 🐾</h1>
+      </div>
+      <div class="button" id="guestButton">
+        <button
+          type="button"
+          class="btn"
+          data-bs-toggle="modal"
+          data-bs-target="#writerModal"
+        >
+          <img src="images/icon2.png" />
+        </button>
+        <h5>작성하기</h5>
       </div>
     </header>
-    <!--입력폼-->
-    <form name="f">
-      <div class="input">
-        <div>
-          <input
-            class="writer"
-            type="text"
-            name="writer"
-            id="writer"
-            placeholder="닉네임"
-          />
-          <input
-            class="content"
-            type="text"
-            name="content"
-            id="content"
-            placeholder="방명록 작성"
-          />
-          <input
-            class="pwd"
-            type="password"
-            name="pwd"
-            id="pwd"
-            placeholder="비밀번호"
-          />
-          <button class="button1" type="button">🐾작성</button>
+    <!-- 방명록 리스트 -->
+    <div class="accordion accordion-flush" id="list"></div>
+
+    <!-- 입력 모달 -->
+    <div
+      class="modal fade"
+      id="writerModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              방명록 작성하기
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input class="form-control" id="writer" placeholder="작성자" />
+              <label for="floatingInput">작성자</label>
+            </div>
+            <div class="form-floating">
+              <textarea
+                class="form-control fs-10"
+                placeholder="Leave a comment here"
+                id="content"
+                style="height: 100px"
+              ></textarea>
+              <label for="floatingTextarea2">내용</label>
+            </div>
+            <div class="form-floating mt-3">
+              <input
+                class="form-control mt-10"
+                type="password"
+                id="pwd"
+                placeholder="비밀번호"
+              />
+              <label for="floatingInput">비밀번호</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="write">
+              작성하기
+            </button>
+          </div>
         </div>
       </div>
-    </form>
-    <div id="list"></div>
-
+    </div>
     <!-- 수정 모달 -->
     <div
       class="modal fade"
