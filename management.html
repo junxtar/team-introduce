@@ -5,69 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>관리자 페이지</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="management.css" />
 
-    <style>
-      body {
-        background-color: #f6f3f4;
-      }
-      header {
-        display: flex;
-        color: #002a55;
-        border-bottom: 1px solid #808080;
-        margin-top: 20px;
-        padding: 0px 340px 0px 200px;
-      }
-
-      header > h1 {
-        cursor: pointer;
-      }
-
-      #pageTitle {
-        font-size: 32px;
-        margin: auto;
-      }
-      #typingBox {
-        background-color: white;
-        width: 800px;
-        margin: 50px auto 0px auto;
-        padding-top: 20px;
-        border-radius: 10%;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        width: 600px;
-        margin: auto;
-      }
-      .textArea {
-        margin-top: 20px;
-        padding-left: 20px;
-        border: none;
-        background-color: #d6ebfc;
-        height: 50px;
-        border-radius: 5px;
-      }
-      .submitArea {
-        margin: 40px auto 30px auto;
-        width: 100px;
-        height: 80px;
-        opacity: 0.6;
-
-        background-color: #a0ebee;
-        border: none;
-        border-radius: 5px;
-      }
-      .submitArea:hover {
-        cursor: pointer;
-        box-shadow: 5px 5px 5px gray;
-      }
-      .submitArea:active {
-        box-shadow: none;
-      }
-      #space-text {
-        margin-left: 40px;
-      }
-    </style>
     <script type="module">
       // Firebase SDK 라이브러리 가져오기
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
