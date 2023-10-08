@@ -5,11 +5,14 @@
 
 body {
   background-color: #f6f3f4;
+}
+
+.main {
   display: grid;
 }
 
 header {
-  height: 200px;
+  height: 330px;
   display: flex;
   align-items: center;
   justify-content: center;

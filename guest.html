@@ -48,13 +48,12 @@
         let content = row["content"];
         let password = row["password"];
 
-        let id = doc.id;
-
         // id를 변형한 이유 -> 클래스명은 영문으로 시작해야함 하지만 문서의 ID값은 숫자로 시작하는 경우가 있음 따라서 영문자로 시작하게끔 변형
         // accordion을 각 유저별로 열고 닫고를 해줘야함 하지만 유저별로 식별할 수 있는 값이 필요했음
         // 식별할 수 있는 값을 class의 값으로 주기 위해서 id를 변형해서 삽입
         // 식별하지 않았을 경우 한 유저가 하나의 방명록을 열었을때 다른 유저의 방명록까지 열리는 현상이 발생
 
+        let id = doc.id;
         let transformId = "a" + doc.id;
 
         let temp_html = `
@@ -121,7 +120,6 @@
 
       $(".delete-btn").click(async function () {
         let id = this.dataset["id"];
-        console.log(123);
         let data = await getDoc(doc(db, "guest", id));
 
         let password = data.data()["password"];
@@ -160,193 +158,198 @@
   </head>
 
   <body>
-    <header>
-      <h1 id="home" style="font-size: 35px">
-        🐾 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자국 🐾
-      </h1>
-      <div class="title">
-        <h1 style="font-size: 50px; font-weight: bold">🐾 방명록 🐾</h1>
-      </div>
-      <div class="button" id="guestButton">
-        <button
-          type="button"
-          class="btn"
-          data-bs-toggle="modal"
-          data-bs-target="#writerModal"
-        >
-          <img src="images/icon2.png" />
-        </button>
-        <h5>작성하기</h5>
-      </div>
-    </header>
-    <!-- 방명록 리스트 -->
-    <div class="accordion accordion-flush" id="list"></div>
-
-    <!-- 입력 모달 -->
-    <div
-      class="modal fade"
-      id="writerModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              방명록 작성하기
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="form-floating mb-3">
-              <input class="form-control" id="writer" placeholder="작성자" />
-              <label for="floatingInput">작성자</label>
-            </div>
-            <div class="form-floating">
-              <textarea
-                class="form-control fs-10"
-                placeholder="Leave a comment here"
-                id="content"
-                style="height: 100px"
-              ></textarea>
-              <label for="floatingTextarea2">내용</label>
-            </div>
-            <div class="form-floating mt-3">
-              <input
-                class="form-control mt-10"
-                type="password"
-                id="pwd"
-                placeholder="비밀번호"
-              />
-              <label for="floatingInput">비밀번호</label>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              닫기
-            </button>
-            <button type="button" class="btn btn-primary" id="write">
-              작성하기
-            </button>
-          </div>
+    <div class="main">
+      <header>
+        <h4 id="home" style="font-size: 35px">
+          🐾 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자국
+          🐾
+        </h4>
+        <div class="title">
+          <h1 style="font-size: 50px; font-weight: bold">🐾 방명록 🐾</h1>
         </div>
-      </div>
-    </div>
-    <!-- 수정 모달 -->
-    <div
-      class="modal fade"
-      id="updateModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">수정하기</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label"
-                  >작성자</label
-                >
-                <input type="text" class="form-control" id="writer-modal" />
-              </div>
-            </form>
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">내용</label>
-                <input type="text" class="form-control" id="content-modal" />
-              </div>
-            </form>
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label"
-                  >비밀번호</label
-                >
-                <input type="password" class="form-control" id="password" />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              닫기
-            </button>
-            <button type="button" class="btn btn-primary" id="update">
-              수정하기
-            </button>
-          </div>
+        <div class="button" id="guestButton">
+          <button
+            type="button"
+            class="btn"
+            data-bs-toggle="modal"
+            data-bs-target="#writerModal"
+          >
+            <img src="images/icon2.png" />
+          </button>
+          <h5>작성하기</h5>
         </div>
-      </div>
-    </div>
+      </header>
+      <!-- 방명록 리스트 -->
+      <div class="accordion accordion-flush" id="list"></div>
 
-    <!-- 삭제 모달 -->
-    <div
-      class="modal fade"
-      id="deleteModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              정말 삭제하시겠습니까?
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label"
-                  >비밀번호</label
-                >
+      <!-- 입력 모달 -->
+      <div
+        class="modal fade"
+        id="writerModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                방명록 작성하기
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-floating mb-3">
+                <input class="form-control" id="writer" placeholder="작성자" />
+                <label for="floatingInput">작성자</label>
+              </div>
+              <div class="form-floating">
+                <textarea
+                  class="form-control fs-10"
+                  placeholder="Leave a comment here"
+                  id="content"
+                  style="height: 100px"
+                ></textarea>
+                <label for="floatingTextarea2">내용</label>
+              </div>
+              <div class="form-floating mt-3">
                 <input
+                  class="form-control mt-10"
                   type="password"
-                  class="form-control"
-                  id="deletePassword"
+                  id="pwd"
+                  placeholder="비밀번호"
                 />
+                <label for="floatingInput">비밀번호</label>
               </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary" id="write">
+                작성하기
+              </button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              닫기
-            </button>
-            <button type="button" class="btn btn-primary" id="delete">
-              삭제하기
-            </button>
+        </div>
+      </div>
+      <!-- 수정 모달 -->
+      <div
+        class="modal fade"
+        id="updateModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">수정하기</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >작성자</label
+                  >
+                  <input type="text" class="form-control" id="writer-modal" />
+                </div>
+              </form>
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >내용</label
+                  >
+                  <input type="text" class="form-control" id="content-modal" />
+                </div>
+              </form>
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >비밀번호</label
+                  >
+                  <input type="password" class="form-control" id="password" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary" id="update">
+                수정하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 삭제 모달 -->
+      <div
+        class="modal fade"
+        id="deleteModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                정말 삭제하시겠습니까?
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >비밀번호</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="deletePassword"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button type="button" class="btn btn-primary" id="delete">
+                삭제하기
+              </button>
+            </div>
           </div>
         </div>
       </div>
