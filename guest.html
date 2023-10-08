@@ -108,6 +108,7 @@
             let inform = {
               writer: writer,
               content: content,
+              date: new Date(),
             };
             await updateDoc(guest, inform);
             alert("수정되었습니다.");
