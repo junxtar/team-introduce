@@ -1,22 +1,35 @@
 body {
   background-color: #f6f3f4;
+  margin: 0;
 }
 header {
   display: flex;
+  align-items: center;
+  height: 330px;
+  width: 100%;
   color: #002a55;
   border-bottom: 1px solid #808080;
-  margin-top: 20px;
-  padding: 0px 340px 0px 200px;
+  margin: auto;
+  position: relative;
 }
 
 header > h1 {
   cursor: pointer;
+  position: absolute;
+  margin-left: 180px;
 }
 
 #pageTitle {
-  font-size: 32px;
+  font-size: 50px;
+  font-weight: bold;
   margin: auto;
 }
+
+#pageTitle > div {
+  width: 800px;
+  text-align: center;
+}
+
 #typingBox {
   background-color: white;
   width: 800px;
@@ -43,7 +56,6 @@ form {
   width: 100px;
   height: 80px;
   opacity: 0.6;
-
   background-color: #a0ebee;
   border: none;
   border-radius: 5px;

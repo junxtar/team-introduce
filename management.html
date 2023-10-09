@@ -40,19 +40,31 @@
         let goal = $("#goal").val();
         let blog = $("#blog").val();
 
-        let inform = {
-          name: name,
-          image: image,
-          mbti: mbti,
-          strengths: strengths,
-          style: style,
-          goal: goal,
-          blog: blog,
-        };
+        if (
+          name !== "" &&
+          image !== "" &&
+          mbti !== "" &&
+          strengths !== "" &&
+          style !== "" &&
+          goal !== "" &&
+          blog !== ""
+        ) {
+          let inform = {
+            name: name,
+            image: image,
+            mbti: mbti,
+            strengths: strengths,
+            style: style,
+            goal: goal,
+            blog: blog,
+          };
 
-        await addDoc(collection(db, "team"), inform);
-        alert("저장완료");
-        window.location.reload();
+          await addDoc(collection(db, "team"), inform);
+          alert("저장완료");
+          window.location.reload();
+        } else {
+          alert("빈칸을 채워주세요.");
+        }
       });
     </script>
   </head>
@@ -62,7 +74,9 @@
         <div>🐾 개발</div>
         <div id="space-text">자국 🐾</div>
       </h1>
-      <div id="pageTitle">관리자 페이지</div>
+      <div id="pageTitle">
+        <div>🐾 관리자 🐾</div>
+      </div>
     </header>
     <div id="qwe"></div>
     <div id="typingBox">
