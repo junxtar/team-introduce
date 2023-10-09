@@ -25,6 +25,10 @@ body {
   box-sizing: border-box;
 }
 
+.icon {
+  width: 40px;
+}
+
 .right {
   width: 50%;
   float: right;
