@@ -122,6 +122,27 @@
             alert("비밀번호가 일치하지 않습니다.");
           }
         });
+
+        $("#password").keydown(async function (event) {
+          if (event.which === 13) {
+            let inputPassword = $("#password").val();
+            if (sha256(inputPassword) == password) {
+              const guest = doc(db, "guest", id);
+              let writer = $("#writer-modal").val();
+              let content = $("#content-modal").val();
+              let inform = {
+                writer: writer,
+                content: content,
+                date: new Date(),
+              };
+              await updateDoc(guest, inform);
+              alert("수정되었습니다.");
+              window.location.reload();
+            } else {
+              alert("비밀번호가 일치하지 않습니다.");
+            }
+          }
+        });
       });
 
       $(".delete-btn").click(async function () {
@@ -142,9 +163,20 @@
             alert("비밀번호가 일치하지 않습니다.");
           }
         });
+        $("#deletePassword").keydown(async function (event) {
+          if (event.which === 13) {
+            let inputPassword = $("#deletePassword").val();
+            if (sha256(inputPassword) == password) {
+              await deleteDoc(doc(db, "guest", id));
+              alert("삭제되었습니다.");
+              window.location.reload();
+            } else {
+              alert("비밀번호가 일치하지 않습니다.");
+            }
+          }
+        });
       });
-
-      $("#write").click(async function () {
+      async function writeGuestBook() {
         let writer = $("#writer").val();
         let content = $("#content").val();
         let password = $("#pwd").val();
@@ -162,6 +194,13 @@
           window.location.reload();
         } else {
           alert("빈칸을 채워주세요.");
+        }
+      }
+      $("#write").click(writeGuestBook);
+
+      $("#pwd").keydown(async function (event) {
+        if (event.which === 13) {
+          writeGuestBook();
         }
       });
 
@@ -283,7 +322,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form onsubmit="return false;">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label"
                     >작성자</label
@@ -291,7 +330,7 @@
                   <input type="text" class="form-control" id="writer-modal" />
                 </div>
               </form>
-              <form>
+              <form onsubmit="return false;">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label"
                     >내용</label
@@ -299,7 +338,7 @@
                   <input type="text" class="form-control" id="content-modal" />
                 </div>
               </form>
-              <form>
+              <form onsubmit="return false;">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label"
                     >비밀번호</label
@@ -347,7 +386,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form onsubmit="return false;">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label"
                     >비밀번호</label
