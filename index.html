@@ -119,6 +119,10 @@
         });
       });
 
+      $("#closeBtn").click(function () {
+        $("#password").val("");
+      });
+
       $("#management-btn").click(async function () {
         let password = $("#password").val();
         if (
@@ -262,6 +266,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              id="closeBtn"
             >
               닫기
             </button>
