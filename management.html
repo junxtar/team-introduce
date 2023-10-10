@@ -41,9 +41,9 @@
         let name = $("#u_name").val();
         let image = $("#image").val();
         let mbti = $("#mbti").val();
-        let strengths = $("#strengths").val();
-        let style = $("#style").val();
-        let goal = $("#goal").val();
+        let strengths = $("#strengths").val().replace(/\n/g, "<br />");
+        let style = $("#style").val().replace(/\n/g, "<br />");
+        let goal = $("#goal").val().replace(/\n/g, "<br />");
         let blog = $("#blog").val();
 
         if (
@@ -139,6 +139,7 @@
         </div>
         <div class="form-floating mb-2">
           <textarea
+            wrap="hard"
             class="form-control"
             id="strengths"
             placeholder="장점"
@@ -148,6 +149,7 @@
         </div>
         <div class="form-floating mb-2">
           <textarea
+            wrap="hard"
             class="form-control"
             id="style"
             placeholder="자신의 협업 스타일"
@@ -157,6 +159,7 @@
         </div>
         <div class="form-floating mb-2">
           <textarea
+            wrap="hard"
             class="form-control"
             id="goal"
             placeholder="내일배움 캠프의 궁극적인 목표"
