@@ -48,13 +48,8 @@
         let content = row["content"];
         let password = row["password"];
 
-        // id를 변형한 이유 -> 클래스명은 영문으로 시작해야함 하지만 문서의 ID값은 숫자로 시작하는 경우가 있음 따라서 영문자로 시작하게끔 변형
-        // accordion을 각 유저별로 열고 닫고를 해줘야함 하지만 유저별로 식별할 수 있는 값이 필요했음
-        // 식별할 수 있는 값을 class의 값으로 주기 위해서 id를 변형해서 삽입
-        // 식별하지 않았을 경우 한 유저가 하나의 방명록을 열었을때 다른 유저의 방명록까지 열리는 현상이 발생
-
         let id = doc.id;
-        let transformId = "a" + doc.id;
+        let transformId = "a" + id;
 
         let temp_html = `
         <div class="item">
@@ -98,13 +93,13 @@
         $("input[id=writer-modal]").attr("value", writer);
         $("input[id=content-modal]").attr("value", content);
 
-        $("#updateClose").click(function () {
+        $("#updateClose").click(() => {
           $("#writer-modal").val(writer);
           $("#content-modal").val(content);
           $("#password").val("");
         });
 
-        $("#update").click(async function () {
+        const updateHandle = async () => {
           let inputPassword = $("#password").val();
           if (sha256(inputPassword) == password) {
             const guest = doc(db, "guest", id);
@@ -121,26 +116,12 @@
           } else {
             alert("비밀번호가 일치하지 않습니다.");
           }
-        });
+        };
+        $("#update").click(updateHandle);
 
-        $("#password").keydown(async function (event) {
+        $("#password").keydown((event) => {
           if (event.which === 13) {
-            let inputPassword = $("#password").val();
-            if (sha256(inputPassword) == password) {
-              const guest = doc(db, "guest", id);
-              let writer = $("#writer-modal").val();
-              let content = $("#content-modal").val();
-              let inform = {
-                writer: writer,
-                content: content,
-                date: new Date(),
-              };
-              await updateDoc(guest, inform);
-              alert("수정되었습니다.");
-              window.location.reload();
-            } else {
-              alert("비밀번호가 일치하지 않습니다.");
-            }
+            updateHandle();
           }
         });
       });
@@ -150,33 +131,28 @@
         let data = await getDoc(doc(db, "guest", id));
 
         let password = data.data()["password"];
-        $("#deleteClose").click(function () {
-          $("#deletePassword").val("");
-        });
-        $("#delete").click(async function () {
-          let inputPassword = $("#deletePassword").val();
-          if (sha256(inputPassword) == password) {
+        $("#deleteClose").click(() => $("#deletePassword").val(""));
+
+        const handleDelete = async () => {
+          const inputPassword = $("#deletePassword").val();
+          if (sha256(inputPassword) === password) {
             await deleteDoc(doc(db, "guest", id));
             alert("삭제되었습니다.");
             window.location.reload();
           } else {
             alert("비밀번호가 일치하지 않습니다.");
           }
-        });
-        $("#deletePassword").keydown(async function (event) {
+        };
+
+        $("#delete").click(handleDelete);
+        $("#deletePassword").keydown((event) => {
           if (event.which === 13) {
-            let inputPassword = $("#deletePassword").val();
-            if (sha256(inputPassword) == password) {
-              await deleteDoc(doc(db, "guest", id));
-              alert("삭제되었습니다.");
-              window.location.reload();
-            } else {
-              alert("비밀번호가 일치하지 않습니다.");
-            }
+            handleDelete();
           }
         });
       });
-      async function writeGuestBook() {
+
+      const writeHandle = async () => {
         let writer = $("#writer").val();
         let content = $("#content").val();
         let password = $("#pwd").val();
@@ -195,12 +171,13 @@
         } else {
           alert("빈칸을 채워주세요.");
         }
-      }
-      $("#write").click(writeGuestBook);
+      };
+
+      $("#write").click(writeHandle);
 
       $("#pwd").keydown(async function (event) {
         if (event.which === 13) {
-          writeGuestBook();
+          writeHandle();
         }
       });
 
