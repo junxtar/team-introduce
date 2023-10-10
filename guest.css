@@ -12,7 +12,7 @@ body {
 }
 
 header {
-  height: 330px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,18 +22,17 @@ header {
 
 #home {
   cursor: pointer;
-  width: 50%;
+  width: 25%;
   text-align: center;
 }
 
 .title {
   text-align: center;
-  width: 70%;
-  margin: 3% 20% 3% 14%;
+  width: 50%;
 }
 
 .button {
-  margin-right: 8%;
+  width: 25%;
   text-align: center;
   color: #002a55;
 }
