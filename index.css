@@ -115,6 +115,7 @@ body {
 .col > img {
   height: 250px;
   width: 250px;
+  object-fit: cover;
 }
 
 .col > h5 {
@@ -212,6 +213,7 @@ body {
   height: 250px;
   border-radius: 50%;
   border: 1px solid rgb(233, 232, 232);
+  object-fit: cover;
 }
 .profile_top {
   display: flex;
