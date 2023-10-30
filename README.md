@@ -20,7 +20,7 @@
 | --- | --- | --- | --- | --- |
 | [GITHUB](https://github.com/junxtar) | [GITHUB](https://github.com/seaStamp) | [GITHUB](https://github.com/guncow0603) | [GITHUB](https://github.com/RyanDJang) | [GITHUB](https://github.com/lsj135779) |
 
-### [🔗 배포 링크](https://junxtar.github.io/team_introduce/index.html)
+### [🔗 배포 링크](https://junxtar.github.io/team-introduce/index.html)
 
 ### [🎥 시연영상](https://youtu.be/2-QQEpzIR78)
 
